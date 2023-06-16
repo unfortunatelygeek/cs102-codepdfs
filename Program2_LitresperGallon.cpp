@@ -1,27 +1,45 @@
 #include <iostream>
 using namespace std;
 
-const double LITRES_PER_GALLON = 0.264179;  //A constant value that will not change
+const double LITRES_PER_GALLON = 0.264179;  
 
-double milesPerGallon(double litres, double miles) {
-    double gallons = 0;
-    gallons += (litres / LITRES_PER_GALLON);
-    double miles_per_gallon = 0;
-    miles_per_gallon += (miles / gallons);
-    return miles_per_gallon;
-}
+class Car {
+private:
+    double litres;
+    double miles;
+
+public:
+    void setFuelConsumption(double litres) {
+        this->litres = litres;
+    }
+
+    void setMileage(double miles) {
+        this->miles = miles;
+    }
+
+    double calculateMilesPerGallon() {
+        double gallons = litres / LITRES_PER_GALLON;
+        double miles_per_gallon = miles / gallons;
+        return miles_per_gallon;
+    }
+};
 
 int main() {
-    double litres, miles;
+    Car car;
     char repeat;
 
     do {
+        double litres, miles;
+
         cout << "Enter the number of litres of gasoline consumed: ";
         cin >> litres;
+        car.setFuelConsumption(litres);
+
         cout << "Enter the number of miles traveled: ";
         cin >> miles;
+        car.setMileage(miles);
 
-        double miles_per_gallon = milesPerGallon(litres, miles);
+        double miles_per_gallon = car.calculateMilesPerGallon();
         cout << "The car delivered " << miles_per_gallon << " miles per gallon." << endl;
 
         cout << "Do you want to calculate again? (Y/N): ";
@@ -29,5 +47,6 @@ int main() {
         cout << endl;
     } 
     while (repeat == 'Y' || repeat == 'y');
+
     return 0;
 }
